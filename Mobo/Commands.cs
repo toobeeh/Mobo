@@ -66,5 +66,15 @@ namespace Mobo
             await context.Channel.SendMessageAsync("**Watch out!**\nMaybe another channel fits better?");
 
         }
+
+        [Command("say")]
+        [Description("Say something.")]
+        public async Task Say(CommandContext context)
+        {
+            string say = context.Message.Content;
+            await context.Message.DeleteAsync();
+            await context.Channel.SendMessageAsync("content");
+
+        }
     }
 }
