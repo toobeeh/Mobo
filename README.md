@@ -50,3 +50,9 @@ Show the manual.
 ## Say something
 mobo:say [something]  
 Useless command to make mobo cuter. Your command gets deleted.
+Admins can react wit any emoji to reveal the author.
+
+## Say something, but different  
+mobo:pass [target channel] [something]  
+Same as mobo:say, but echoes in another channel.  
+Full anonymity since nobody sees you typing.  
