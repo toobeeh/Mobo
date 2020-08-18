@@ -71,7 +71,7 @@ namespace Mobo
         [Description("Say something.")]
         public async Task Say(CommandContext context)
         {
-            string say = context.Message.Content;
+            string say = context.Message.Content.Replace("mobo:say","").Trim();
             await context.Message.DeleteAsync();
             await context.Channel.SendMessageAsync(say);
 
