@@ -77,7 +77,7 @@ namespace Mobo
             embedChat.Color = new DiscordColor("#ff1744");
             lastMessages.Reverse().ToList().ForEach(
                 (m) => {
-                    embedChat.AddField("**" + m.Author.Username + "**", m.Content);
+                    if(m.Author != Client.CurrentUser) embedChat.AddField("**" + m.Author.Username + "**", m.Content);
                 }
             );
 
