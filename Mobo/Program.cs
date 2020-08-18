@@ -49,11 +49,11 @@ namespace Mobo
         }
         private static async Task onreaction(MessageReactionAddEventArgs e)
         {
-            if(MoveVotes.Exists(v => v.Message.Equals(e.Message)) && e.Emoji == DiscordEmoji.FromName(Client, "twisted_rightwards_arrows")){
+            if(MoveVotes.Exists(v => v.Message.Equals(e.Message)) && e.Emoji == DiscordEmoji.FromName(Client, ":twisted_rightwards_arrows:")){
                 var vote = MoveVotes.Find(v => v.Message.Equals(e.Message));
                 if (vote.AddVote())
                 {
-                    if (vote.Reactions >= 2)
+                    if (vote.Reactions >= 4)
                     {
                         await MoveChat(e.Guild, e.Channel, 10, vote.Channel);
                         MoveVotes.Remove(vote);

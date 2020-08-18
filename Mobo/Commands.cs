@@ -42,9 +42,8 @@ namespace Mobo
         public async Task Warn(CommandContext context, DiscordChannel target)
         {
             await context.Message.DeleteAsync();
-            var warning = await context.Channel.SendMessageAsync("**Watch out!**\nMaybe another " + target.Mention + " fits better?\n\n*React with " + 
-                DSharpPlus.Formatter.Emoji(DiscordEmoji.FromName(Program.Client, "twisted_rightwards_arrows")) + "to move the chat.*\n*4 reactions are needed.*");
-            await warning.CreateReactionAsync(DiscordEmoji.FromName(Program.Client, "twisted_rightwards_arrows"));
+            var warning = await context.Channel.SendMessageAsync("**Watch out!**\nMaybe " + target.Mention + " fits better?\n\n*React with :twisted_rightwards_arrows: within 5 mins to move the chat.*\n*4 reactions are needed.*");
+            await warning.CreateReactionAsync(DiscordEmoji.FromName(Program.Client, ":twisted_rightwards_arrows:"));
             Program.MoveVotes.Add(new Vote(warning, target));
         }
 
