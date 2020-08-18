@@ -21,8 +21,8 @@ namespace Mobo
         public async Task Manual(CommandContext context)
         {
             string msg = "**Hi!** \nI'm Mobo, your move bot - cute, huh? :3\nMy job is to move offtopic conversations into the right channel.\nTo do so, use following commands:\n\n";
-            msg += "mobo:move `limit` `#channel`\nThis instant-moves the chat and is admin-only.\nLimit sets how many messages you want to show in the notification.\nChannel sets the channel where the conversation should continue.\n\nExample:\n`mobo:move 10 #main`\n\n";
-            msg += "\n\n mobo:vote `#channel`\nThis creates a vote message to move the chat.\nChannel sets the target channel.\nIf at least 3 members react, the chat will be moved.\n";
+            msg += "mobo:move `limit` `#channel`\nThis instant-moves the chat and is admin-only.\nLimit sets how many messages you want to show in the notification.\nChannel sets the channel where the conversation should continue.\n\nExample:\n`mobo:move 10 #main`\n";
+            msg += "\nmobo:vote `#channel`\nThis creates a vote message to move the chat.\nChannel sets the target channel.\nIf at least 3 members react, the chat will be moved.\n";
             msg += "\n Also try `mobo:say `something`";
             await context.RespondAsync(msg);
         }
@@ -57,6 +57,16 @@ namespace Mobo
             string response = "";
             say.ToList().ForEach((p) => response += p + " ");
             await context.Channel.SendMessageAsync(response);
+        }
+
+        [Command("say")]
+        [Description("Say something to another channel.")]
+        public async Task Say(CommandContext context, DiscordChannel target, params string[] say)
+        {
+            await context.Message.DeleteAsync();
+            string response = "";
+            say.ToList().ForEach((p) => response += p + " ");
+            await target.SendMessageAsync(response);
         }
     }
 }
