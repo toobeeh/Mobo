@@ -19,7 +19,7 @@ namespace Mobo
 
             Client = new DiscordClient(new DiscordConfiguration
             {
-                Token = "NzQ1MDExNDQwOTkzMzA0NzQ2.Xzrj-Q.6G01qQcPYQKJsPJD-CIhzB0ugks",// File.ReadAllText("C:/Users/Tobi/Desktop/token.txt"),
+                Token = args[0],
                 TokenType = TokenType.Bot
             });
             Commands = Client.UseCommandsNext(new CommandsNextConfiguration
