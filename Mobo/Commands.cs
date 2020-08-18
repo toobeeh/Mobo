@@ -32,48 +32,31 @@ namespace Mobo
         [RequireGuild()]
         public async Task Move(CommandContext context, int limit, DiscordChannel target)
         {
-
             await context.Message.DeleteAsync();
-            var channel = context.Channel;
-            var lastMessages = await channel.GetMessagesAsync(limit);
-            await context.Channel.SendMessageAsync("This conversation belongs to " + target.Mention + " and was moved there! \n" + context.Channel.Mention + " is now closed for 2 mins to cool things down.\n\n*Remember to avoid offtopic chats!*");
-            await channel.AddOverwriteAsync(context.Guild.EveryoneRole, DSharpPlus.Permissions.None, DSharpPlus.Permissions.SendMessages, "Temp timeout start");
-            
-            var embedChat = new DiscordEmbedBuilder
-            {
-                Title = "**Moved chat from *#" + context.Channel.Name + "* **",
-                Description = "This conversation didn't meet the channel topic and should be continued here.\n\n\n<a:typing:745068588909592737>"
-            };
-            embedChat.Color = new DiscordColor("#ff1744");
-            lastMessages.Reverse().ToList().ForEach(
-                (m) => {
-                    embedChat.AddField("**" + m.Author.Username + "**", m.Content);
-                }
-            );
-
-            await target.SendMessageAsync(embed: embedChat);
-            await Task.Delay(120000);
-            await channel.AddOverwriteAsync(context.Guild.EveryoneRole, DSharpPlus.Permissions.SendMessages, DSharpPlus.Permissions.None, "Temp timeout stop");
+            await Program.MoveChat(context.Guild, context.Channel, limit, target);        
         }
 
-        [Command("warn")]
+        [Command("vote")]
         [Description("Send a soft warning if the chat tends to get out of hand.")]
         [RequireGuild()]
-        public async Task Warn(CommandContext context)
+        public async Task Warn(CommandContext context, DiscordChannel target)
         {
             await context.Message.DeleteAsync();
-            await context.Channel.SendMessageAsync("**Watch out!**\nMaybe another channel fits better?");
-
+            var warning = await context.Channel.SendMessageAsync("**Watch out!**\nMaybe another " + target.Mention + " fits better?\n\n*React with " + 
+                DSharpPlus.Formatter.Emoji(DiscordEmoji.FromName(Program.Client, "twisted_rightwards_arrows")) + "to move the chat.*\n*4 reactions are needed.*");
+            await warning.CreateReactionAsync(DiscordEmoji.FromName(Program.Client, "twisted_rightwards_arrows"));
+            Program.MoveVotes.Add(new Vote(warning, target));
         }
+
 
         [Command("say")]
         [Description("Say something.")]
-        public async Task Say(CommandContext context)
+        public async Task Say(CommandContext context, params string[] say)
         {
-            string say = context.Message.Content.Replace("mobo:say","").Trim();
             await context.Message.DeleteAsync();
-            await context.Channel.SendMessageAsync(say);
-
+            string response = "";
+            say.ToList().ForEach((p) => response += p + " ");
+            await context.Channel.SendMessageAsync(response);
         }
     }
 }
