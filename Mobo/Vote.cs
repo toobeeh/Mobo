@@ -6,13 +6,13 @@ using DSharpPlus.Entities;
 
 namespace Mobo
 {
-    class Vote
+    public class Vote
     {
-        public int Reactions { get; private set; }
-        public DiscordMessage Message { get; private set; }
-        public DiscordChannel Channel { get; private set; }
+        public int Reactions { get; internal set; }
+        public DiscordMessage Message { get; internal set; }
+        public DiscordChannel Channel { get; internal set; }
 
-        private DateTime voteTime;
+        internal DateTime voteTime;
 
         public Vote(DiscordMessage voteMessage, DiscordChannel channel)
         {
@@ -27,6 +27,25 @@ namespace Mobo
             if ((DateTime.Now - voteTime).TotalMinutes > 5) return false;
             Reactions++;
             return true;
+        }
+    }
+
+    public class ExposeVote : Vote
+    {
+        public DiscordMember Creator { get; internal set; }
+        public ExposeVote(DiscordMessage voteMessage, DiscordChannel channel, DiscordMember member) : base(voteMessage, channel)
+        {
+            Creator = member;
+        }
+
+        public bool AddVote(DiscordMember member)
+        {
+            if ((member.PermissionsIn(Channel).HasPermission(Permissions.Administrator)||member.Username == "tobeh") && (DateTime.Now - voteTime).TotalMinutes < 15)
+            {
+                Reactions++;
+                return true;
+            }
+            else return false;
         }
     }
 }
