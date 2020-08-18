@@ -13,12 +13,15 @@ Also, if there are no admins present, members who want to move the chat can use 
 Three votes in form of reactions will be needed.
 
 ## Screenshots
-<img src="moboMovedChat.png" height="500px">
-**Moved messages in the better fitting channel**  
----
-<img src="moboVote.png" height="500px">
-**Move votes**  
----
+<img src="moboMovedChat.png" height="500px">  
+
+**Moved messages in the better fitting channel**   
+---  
+<img src="moboVote.png" height="500px">  
+
+**Move votes**    
+---  
+
 # Invite Mobo  
 Get mobo here:    
 https://discord.com/oauth2/authorize?client_id=745011440993304746&scope=bot&permissions=272408  
