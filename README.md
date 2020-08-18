@@ -1,4 +1,4 @@
-# Mobo - Move Bot
+# Mobo - Discord Move Bot
 
 Mobo is a simple-to-use bot which task is to get rid of offtopic spam in channels.
 The problem with offtopic conversations is that the chat probably would stop when mods force to switch channel.
@@ -12,8 +12,8 @@ Mobo will collect a amount of the last few messages (count is second parameter, 
 This has the effect, that users can't spam anymore in the wrong channel, but on the other hand have the recent history in the right channel.
 
 # Invite mobo
-Get mobo here:
-https://discord.com/oauth2/authorize?client_id=745011440993304746&scope=bot&permissions=272408
+Get mobo here:  
+https://discord.com/oauth2/authorize?client_id=745011440993304746&scope=bot&permissions=272408  
 Ensure to grant the necessary permissions!
 
 # Commands
