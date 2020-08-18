@@ -10,6 +10,8 @@ The channel will then be read-only for the specified role; @everyone mostly make
 Mobo will collect a amount of the last few messages (count is second parameter, eg 20) and creates an embed in a better fitting channel (third argument).
 
 This has the effect, that users can't spam anymore in the wrong channel, but on the other hand have the recent history in the right channel.
+![Mobo moved messages]("mobo1.png")
+![Mobo chat timeout]("mobo2.png")
 
 # Invite mobo
 Get mobo here:  
