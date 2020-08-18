@@ -13,14 +13,12 @@ Also, if there are no admins present, members who want to move the chat can use 
 Three votes in form of reactions will be needed.
 
 ## Screenshots
+**Moved messages in the better fitting channel**  
 <img src="moboMovedChat.png" height="500px">  
-
-**Moved messages in the better fitting channel**   
+ 
 ---  
-<img src="moboVote.png" height="500px">  
-
 **Move votes**    
----  
+<img src="moboVote.png" height="500px">  
 
 # Invite Mobo  
 Get mobo here:    
@@ -36,10 +34,11 @@ The first start parameter is the token, like:
 # Commands
 
 ## Move chat
-mobo:move [moved amount of messages] [target channel]
+mobo:move [moved amount of messages] [target channel]  
+Move chat as above described.
 
 ## Vote to move chat
-mobo:vote [target channel]
+mobo:vote [target channel]  
 Mobo will write a message where members can react.  
 If enough reactions are colected, the last 10 messages will be moved.  
 The reactions have to be made within 5 minutes.  
