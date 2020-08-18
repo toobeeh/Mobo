@@ -27,7 +27,7 @@ Ensure to grant the necessary permissions!
 
 # Host Mobo
 To host Mobo yourself, clone the repo and run the Mobo exe/dll in build.  
-Latest dotnet is required.  
+Latest dotnetcore is required.  
 The first start parameter is the token, like:  
 *dotnet Mobo.dll [token]*
 
@@ -44,9 +44,9 @@ If enough reactions are colected, the last 10 messages will be moved.
 The reactions have to be made within 5 minutes.  
 
 ## Show manual
-mobo:manual 
+mobo:manual   
 Show the manual.  
 
 ## Say something
-mobo:say [something]
+mobo:say [something]  
 Useless command to make mobo cuter. Your command gets deleted.
