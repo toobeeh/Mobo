@@ -73,7 +73,7 @@ namespace Mobo
         {
             string say = context.Message.Content;
             await context.Message.DeleteAsync();
-            await context.Channel.SendMessageAsync("content");
+            await context.Channel.SendMessageAsync(say);
 
         }
     }
