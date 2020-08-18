@@ -16,7 +16,6 @@ namespace Mobo
     {
         [Command("manual")]
         [Description("Show the manual for bot usage")]
-        [RequireUserPermissions(DSharpPlus.Permissions.Administrator)]
         [RequireGuild()]
         public async Task Manual(CommandContext context)
         {
