@@ -59,9 +59,9 @@ namespace Mobo
             await context.Channel.SendMessageAsync(response);
         }
 
-        [Command("say")]
+        [Command("pass")]
         [Description("Say something to another channel.")]
-        public async Task Say(CommandContext context, DiscordChannel target, params string[] say)
+        public async Task Pass(CommandContext context, DiscordChannel target, params string[] say)
         {
             await context.Message.DeleteAsync();
             string response = "";
