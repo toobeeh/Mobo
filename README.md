@@ -8,6 +8,9 @@ With the command mobo:move in the channel, mobo posts a message which tells user
 Mobo will collect a amount of the last few messages (count is first parameter, eg 20) and creates an embed in a better fitting channel (second argument).
   
 This has the effect that users can't spam anymore in the wrong channel, but on the other hand have the recent history in the right channel.  
+
+Also, if there are no admins present, members who want to move the chat can use mobo:vote to vote for a chat move.  
+Three votes in form of reactions will be needed.
   
 ![Mobo moved messages](mobo1.png)
 Moved messages in the better fitting channel  
@@ -23,16 +26,17 @@ Ensure to grant the necessary permissions!
 # Commands
 
 ## Move chat
-mobo:move [moved amount of messages] [role to move] [target channel]
+mobo:move [moved amount of messages] [target channel]
+
+## Vote to move chat
+mobo:vote [target channel]
+Mobo will write a message where members can react.  
+If enough reactions are colected, the last 10 messages will be moved.  
+The reactions have to be made within 5 minutes.  
 
 ## Show manual
 mobo:manual 
 Show the manual.  
-
-## Show warning
-mobo:warn
-Show a warning that another channel would fit better.   
-The command gets deleted for better anonymity.  
 
 ## Say something
 mobo:say [something]
