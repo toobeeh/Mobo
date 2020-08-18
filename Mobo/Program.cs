@@ -32,10 +32,12 @@ namespace Mobo
                 DmHelp = false,
                 IgnoreExtraArguments = true
             });
+
             Client.GuildCreated += onjoin;
             Client.MessageReactionAdded += onreaction;
+
             Commands.RegisterCommands<Commands>();
-            await Client.ConnectAsync();
+            await Client.ConnectAsync(new DiscordActivity("mobo:vote #channel"));
             MoveVotes = new List<Vote>();
 
             Console.WriteLine("Mobo is ready to move!!");
