@@ -36,7 +36,7 @@ namespace Mobo
             await context.Message.DeleteAsync();
             var channel = context.Channel;
             var lastMessages = await channel.GetMessagesAsync(limit);
-            await context.Channel.SendMessageAsync("This conversation belongs to " + target.Mention + " and was moved there! \n" + context.Channel.Mention + " is now closed for a minute to cool things down.\n\n*Remember to avoid offtopic chats!*");
+            await context.Channel.SendMessageAsync("This conversation belongs to " + target.Mention + " and was moved there! \n" + context.Channel.Mention + " is now closed for 2 mins to cool things down.\n\n*Remember to avoid offtopic chats!*");
             await channel.AddOverwriteAsync(tempBan, DSharpPlus.Permissions.None, DSharpPlus.Permissions.SendMessages, "Temp timeout start");
             
             var embedChat = new DiscordEmbedBuilder
@@ -52,7 +52,7 @@ namespace Mobo
             );
 
             await target.SendMessageAsync(embed: embedChat);
-            await Task.Delay(60000);
+            await Task.Delay(120000);
             await channel.AddOverwriteAsync(tempBan, DSharpPlus.Permissions.SendMessages, DSharpPlus.Permissions.None, "Temp timeout stop");
 
         }
