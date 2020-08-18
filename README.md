@@ -11,17 +11,24 @@ This has the effect that users can't spam anymore in the wrong channel, but on t
 
 Also, if there are no admins present, members who want to move the chat can use mobo:vote to vote for a chat move.  
 Three votes in form of reactions will be needed.
-  
-![Mobo moved messages](mobo1.png)
-Moved messages in the better fitting channel  
-  
-![Mobo chat timeout](mobo2.png)  
-Timeout alert in the spam channel  
 
-# Invite mobo
-Get mobo here:  
+## Screenshots
+![Mobo moved messages](moboMovedChat.png)
+**Moved messages in the better fitting channel**  
+---
+![Mobo chat timeout](moboVote.png)  
+**Move votes**  
+---
+# Invite Mobo  
+Get mobo here:    
 https://discord.com/oauth2/authorize?client_id=745011440993304746&scope=bot&permissions=272408  
 Ensure to grant the necessary permissions!
+
+# Host Mobo
+To host Mobo yourself, clone the repo and run the Mobo exe/dll in build.  
+Latest dotnet is required.  
+The first start parameter is the token, like:  
+*dotnet Mobo.dll [token]*
 
 # Commands
 
