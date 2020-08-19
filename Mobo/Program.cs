@@ -94,9 +94,14 @@ namespace Mobo
         public static async Task MoveChat(DiscordGuild guild, DiscordChannel channel, int limit, DiscordChannel target)
         {
             var lastMessages = await channel.GetMessagesAsync(limit);
-            await channel.SendMessageAsync("This conversation belongs to " + target.Mention + " and was moved there! \n" + channel.Mention + " is now closed for 2 mins to cool things down.\n\n*Remember to avoid offtopic chats!*");
-            // lock channel
-            await channel.AddOverwriteAsync(guild.EveryoneRole, DSharpPlus.Permissions.None, DSharpPlus.Permissions.SendMessages, "Temp timeout start");
+            // check if everyone has access
+            var permSend = true;
+            var channelOverwrites = channel.PermissionOverwrites.ToList();
+            channelOverwrites.ForEach(o => {
+                if (o.Id == guild.EveryoneRole.Id) permSend = !o.Denied.HasPermission(Permissions.SendMessages) && !o.Denied.HasPermission(Permissions.AccessChannels);
+            });
+            await channel.SendMessageAsync("This conversation belongs to " + target.Mention + " and was moved there! \n" + (permSend ? channel.Mention + " is now closed for 2 mins to cool things down.\n" : "") + "\n*Remember to avoid offtopic chats!*");
+            if(permSend) await channel.AddOverwriteAsync(guild.EveryoneRole, DSharpPlus.Permissions.None, DSharpPlus.Permissions.SendMessages, "Temp timeout start");
             // build embed with recent chat
             var embedChat = new DiscordEmbedBuilder
             {
@@ -110,9 +115,12 @@ namespace Mobo
                 }
             );
             await target.SendMessageAsync(embed: embedChat);
-            await Task.Delay(120000);
-            // release channel
-            await channel.AddOverwriteAsync(guild.EveryoneRole, DSharpPlus.Permissions.SendMessages, DSharpPlus.Permissions.None, "Temp timeout stop");
+            if (permSend)
+            {
+                await Task.Delay(120000);
+                // release channel
+                await channel.AddOverwriteAsync(guild.EveryoneRole, DSharpPlus.Permissions.SendMessages, DSharpPlus.Permissions.None, "Temp timeout stop");
+            }
         }
     }
 }
