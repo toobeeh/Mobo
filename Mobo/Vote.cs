@@ -40,7 +40,7 @@ namespace Mobo
 
         public bool AddVote(DiscordMember member)
         {
-            if ((member.PermissionsIn(Channel).HasPermission(Permissions.Administrator)||member.Username == "tobeh") && (DateTime.Now - voteTime).TotalMinutes < 15)
+            if ((member.PermissionsIn(Channel).HasPermission(Permissions.Administrator)||member.Id == 334048043638849536) && (DateTime.Now - voteTime).TotalMinutes < 15)
             {
                 Reactions++;
                 return true;

@@ -33,6 +33,7 @@ namespace Mobo
             });
             Client.GuildCreated += onjoin; // welcome message
             Client.MessageReactionAdded += onreaction; // reaction handler for votes
+            Client.MessageCreated += async (MessageCreateEventArgs e) => { if (e.MentionedUsers.Contains(Client.CurrentUser)) await onmention(e); };
             Commands.RegisterCommands<Commands>();
             await Client.ConnectAsync(new DiscordActivity("mobo:vote #channel"));
             MoveVotes = new List<Vote>();
@@ -54,6 +55,10 @@ namespace Mobo
                 && e.Emoji == DiscordEmoji.FromName(Client, ":twisted_rightwards_arrows:")) await HandleVoteReaction(e);
             // if reaction was made on a say message
             else if (ExposeVotes.Exists(v => v.Message.Equals(e.Message))) await HandleExposeVoteReaction(e);
+        }
+        private static async Task onmention(MessageCreateEventArgs e)
+        {
+            await e.Channel.SendMessageAsync(e.Author.Mention + " Pings are ***eeeevil!*** <a:l23:721872920347017216>");
         }
 
         public static async Task HandleVoteReaction(MessageReactionAddEventArgs e)
