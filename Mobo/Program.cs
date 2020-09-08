@@ -58,6 +58,7 @@ namespace Mobo
         }
         private static async Task onmention(MessageCreateEventArgs e)
         {
+            if (e.Author.IsBot) return;
             await e.Channel.SendMessageAsync(e.Author.Mention + " Pings are ***eeeevil!*** <a:l23:721872920347017216>");
         }
 
