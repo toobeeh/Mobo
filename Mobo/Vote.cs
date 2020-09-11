@@ -28,6 +28,12 @@ namespace Mobo
             Reactions++;
             return true;
         }
+        public bool RemoveVote()
+        {
+            if ((DateTime.Now - voteTime).TotalMinutes > 5) return false;
+            Reactions--;
+            return true;
+        }
     }
 
     public class ExposeVote : Vote

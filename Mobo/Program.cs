@@ -33,6 +33,7 @@ namespace Mobo
             });
             Client.GuildCreated += onjoin; // welcome message
             Client.MessageReactionAdded += onreaction; // reaction handler for votes
+            Client.MessageReactionRemoved += onreactionremoved;
             Client.MessageCreated += async (MessageCreateEventArgs e) => { if (e.MentionedUsers.Contains(Client.CurrentUser)) await onmention(e); };
             Commands.RegisterCommands<Commands>();
             await Client.ConnectAsync(new DiscordActivity("mobo:vote #channel"));
@@ -52,9 +53,15 @@ namespace Mobo
         {
             // if reaction was made on a vote message and reaction is a valid vote emoji
             if (MoveVotes.Exists(v => v.Message.Equals(e.Message))
-                && e.Emoji == DiscordEmoji.FromName(Client, ":twisted_rightwards_arrows:")) await HandleVoteReaction(e);
+                && e.Emoji == DiscordEmoji.FromName(Client, ":twisted_rightwards_arrows:")) await HandleVoteReaction(e.Message);
             // if reaction was made on a say message
             else if (ExposeVotes.Exists(v => v.Message.Equals(e.Message))) await HandleExposeVoteReaction(e);
+        }
+        private static async Task onreactionremoved(MessageReactionRemoveEventArgs e)
+        {
+            // if reaction was made on a vote message and reaction is a valid vote emoji
+            if (MoveVotes.Exists(v => v.Message.Equals(e.Message))
+                && e.Emoji == DiscordEmoji.FromName(Client, ":twisted_rightwards_arrows:")) await HandleVoteReaction(e.Message, false);
         }
         private static async Task onmention(MessageCreateEventArgs e)
         {
@@ -62,17 +69,17 @@ namespace Mobo
             await e.Channel.SendMessageAsync(e.Author.Mention + " Pings are ***eeeevil!*** <a:l23:721872920347017216>");
         }
 
-        public static async Task HandleVoteReaction(MessageReactionAddEventArgs e)
+        public static async Task HandleVoteReaction(DiscordMessage e, bool add = true)
         {
             // get vote message
-            var vote = MoveVotes.Find(v => v.Message.Equals(e.Message));
+            var vote = MoveVotes.Find(v => v.Message.Equals(e));
             // try increment votes - false if vote timeout has expired
-            if (vote.AddVote())
+            if (add ? vote.AddVote() : vote.RemoveVote())
             {
                 if (vote.Reactions >= 4)
                 {
                     // if move vote count is reached, move the chat
-                    await MoveChat(e.Guild, e.Channel, 10, vote.Channel);
+                    await MoveChat(e.Channel.Guild, e.Channel, 10, vote.Channel);
                     MoveVotes.Remove(vote);
                 }
             }
