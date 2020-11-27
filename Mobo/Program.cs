@@ -13,6 +13,23 @@ namespace Mobo
     class Program
     {
         public static DiscordClient Client { get; private set; }
+        private static string[] specialCookie = 
+            { 
+            "SIE LÜGT!!!", 
+            "Cookie ist böse! >.<",
+            "Nimm sie nicht ernst... :/",
+            "Psssht!",
+            "Sei mal bisschen netter",
+            "Du bist noch minderjährig cokie!!!",
+            "..wth?",
+            "Typisch cookie",
+            "lol",
+            "Huch",
+            ";))",
+            "Schrei niCHT SO!!!!",
+            "Benimm dich cookie",
+            "#verwarnungen-und-regelverstöße",
+            "Mobbing ist nicht cool"};
         public static CommandsNextExtension Commands { get; private set; }
         public static List<Vote> MoveVotes { get; set; }
         public static List<ExposeVote> ExposeVotes { get; set; }
@@ -34,7 +51,15 @@ namespace Mobo
             Client.GuildCreated += onjoin; // welcome message
             Client.MessageReactionAdded += onreaction; // reaction handler for votes
             Client.MessageReactionRemoved += onreactionremoved;
-            Client.MessageCreated += async (MessageCreateEventArgs e) => { if (e.MentionedUsers.Contains(Client.CurrentUser)) await onmention(e); };
+            Client.MessageCreated += async (MessageCreateEventArgs e) => 
+            { 
+                if (e.MentionedUsers.Contains(Client.CurrentUser)) await onmention(e);
+                if (e.Message.Author.Id == 692480469694152734 && e.Message.Content.Length > 5)
+                {
+                    int rnd = (new Random()).Next(specialCookie.Length * 3);
+                    if(rnd < specialCookie.Length)await e.Message.RespondAsync(specialCookie[rnd]);
+                }
+            };
             Commands.RegisterCommands<Commands>();
             await Client.ConnectAsync(new DiscordActivity("mobo:vote #channel"));
             MoveVotes = new List<Vote>();
