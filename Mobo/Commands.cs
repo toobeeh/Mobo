@@ -58,7 +58,7 @@ namespace Mobo
             await context.Message.DeleteAsync();
             string response = "";
             say.ToList().ForEach((p) => response += p + " ");
-            var vote = await context.Channel.SendMessageAsync(response);
+            var vote = await context.Channel.SendMessageAsync(context.Message.Content.Replace("mobo:say","").Trim());
             Program.ExposeVotes.Add(new ExposeVote(vote, context.Channel, context.Member));
         }
 
