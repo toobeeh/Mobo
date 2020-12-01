@@ -54,6 +54,10 @@ namespace Mobo
         [Description("Say something.")]
         public async Task Say(CommandContext context, params string[] say)
         {
+            foreach(DiscordRole role in context.Message.MentionedRoles)
+            {
+                context.Message.Content.Replace(role.Mention, $"`{@role.Name}`");
+            }
             // echo something and delete command
             await context.Message.DeleteAsync();
             string response = "";
