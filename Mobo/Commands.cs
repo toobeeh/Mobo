@@ -56,7 +56,7 @@ namespace Mobo
         {
             foreach(DiscordRole role in context.Message.MentionedRoles)
             {
-                context.Message.Content.Replace(role.Mention, $"`{@role.Name}`");
+                context.Message.Content.Replace($"@{role.Name}", $"`@{role.Name}`");
             }
             // echo something and delete command
             await context.Message.DeleteAsync();
